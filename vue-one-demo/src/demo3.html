@@ -7,6 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vue基础实例三——子组件通过props获取父组件参数</title>
 </head>
+<style>
+    #app {
+        border: 1px solid #000;
+    }
+
+    .child {
+        border: 1px solid red;
+        margin: 2px;
+    }
+</style>
 
 <body>
     <div id="app">
@@ -17,7 +27,9 @@
     </div>
     <!-- 子组件模板 -->
     <template id="child">
-        <p>子组件说：{{ fromfa }}</p>
+        <div class="child">
+            <p>子组件说：{{ fromfa }}</p>
+        </div>
     </template>
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
     <script>
