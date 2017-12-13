@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue基础实例三——子组件通过props获取父组件参数</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>父组件说：{{ famessage }}</p>
+        <!-- 动态绑定 -->
+        <my-component v-bind:message="fa"></my-component>
+        <!-- <my-component message="fa"></my-component> -->
+    </div>
+    <!-- 子组件模板 -->
+    <template id="child">
+        <p>子组件说：{{ fromfa }}</p>
+    </template>
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
+    <script>
+        var child = {
+            // 声明props
+            props: [
+                "message"
+            ],
+            template: '#child',  //必须绑定一个模板
+            data: function () {
+                return {
+                    msg: '我是子组件！',
+                    fromfa: this.message
+                }
+            }
+        }
+        // 创建根实例，所有的内容都应该包含在根实例中
+        new Vue({
+            el: '#app',
+            components: {
+                'my-component': child
+            },
+            data: {
+                famessage: '我是父组件！',
+                fa: '父组件内容！'
+            }
+        })
+    </script>
+</body>
+
+</html>
