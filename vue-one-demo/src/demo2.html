@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue组件实例二</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app">
+       <p>父组件说：{{ message }}</p>
+       <my-component></my-component>
+    </div>
+    <!-- 子组件模板 -->
+    <template id="child">
+        <p>子组件说：{{msg}}</p>
+    </template>
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
+    <script>
+        var child = {
+            template:'#child',  //必须绑定一个模板
+            data:function(){
+                return{
+                    msg:'我是子组件！'
+                }
+            }
+        }
+        // 创建根实例，所有的内容都应该包含在根实例中
+        new Vue({
+            el:'#app',
+            components:{
+                'my-component':child
+            },
+            data:{
+                message:'我是父组件！'
+            }
+        })
+    </script>
+</body>
+</html>
