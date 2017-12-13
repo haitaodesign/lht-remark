@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue基础实例五——路由</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/child1">子组件1</router-link>
+        <router-link to="/child2">子组件2</router-link>
+        <router-view></router-view>
+    </div>
+    <template id="child">
+        <div>
+            <p>子组件说：{{message}}</p>
+        </div>
+    </template>
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+    <script>
+        var child1 = {
+            template: "#child",
+            data: function () {
+                return {
+                    message: "我是子组件1"
+                }
+            }
+        };
+        var child2 = {
+            template: "#child",
+            data: function () {
+                return {
+                    message: "我是子组件2"
+                }
+            }
+        };
+
+        //定义路由
+        var routes = [
+            //每个路由定义一个组件
+            { path: '/child1', component: child1 },
+            { path: '/child2', component: child2 }
+        ];
+        var router = new VueRouter({
+            routes: routes
+        });
+        new Vue({
+            el: "#app",
+            router: router
+        });
+    </script>
+</body>
+
+</html>
