@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue基础实例三——子组件通过事件向父组件传递参数</title>
+</head>
+<style>
+    #app {
+        border: 1px solid #000;
+    }
+
+    .child {
+        border: 1px solid red;
+        margin: 2px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <p>父组件说：{{ famessage }}</p>
+        <!-- 动态绑定 -->
+        <my-component v-bind:message="fa" @increment="getChildParams"></my-component>
+        <!-- <my-component message="fa"></my-component> -->
+    </div>
+    <!-- 子组件模板 -->
+    <template id="child">
+        <div class="child">
+            <p>子组件说：{{ fromfa }}</p>
+            <button @click="send">传参</button>
+        </div>
+    </template>
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
+    <script>
+        var child = {
+
+            // 声明props
+            props: [
+                "message"
+            ],
+            template: '#child',  //必须绑定一个模板
+            data: function () {
+                return {
+                    msg: '我是子组件！',
+                    fromfa: this.message
+                }
+            },
+            methods: {
+                send: function () {
+                    // 触发increment事件，并传递参数
+                    this.$emit("increment", { params: this.msg });
+                }
+            }
+        };
+        // 创建根实例，所有的内容都应该包含在根实例中
+        new Vue({
+            el: '#app',
+            components: {
+                'my-component': child
+            },
+            data: {
+                famessage: '我是父组件！',
+                fa: '父组件内容！'
+            },
+            methods: {
+                getChildParams(param) {
+                    this.famessage = param.params;
+                }
+            }
+
+        });
+    </script>
+</body>
+
+</html>
